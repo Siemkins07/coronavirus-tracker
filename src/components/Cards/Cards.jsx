@@ -6,8 +6,7 @@ import cx from 'classnames';
 
 
 const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
-  console.log(lastUpdate);
-  
+
   if (!confirmed) {
   return <h3>Loading...</h3>
 }
