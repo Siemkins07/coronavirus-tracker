@@ -3,65 +3,58 @@ import { Card, CardContent, Typography, Grid } from '@material-ui/core';
 import CountUp from 'react-countup';
 import styles from './Cards.module.css';
 import cx from 'classnames';
-
+import covid from '../../images/covid.png'
 
 const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
+ 
+  const variants = [{
+    state: 'Infected',
+    end: confirmed,
+    text: ' active cases of '
+  },
+  {
+    state: 'Recovered',
+    end: recovered,
+    text: ' recovered cases of '
+  },
+  {
+    state: 'Deaths',
+    end: deaths,
+    text: ' deaths caused by '
+  },
+  ];
+   
 
   if (!confirmed) {
-  return <h3>Loading...</h3>
-}
+    return (
+    <>
+      <img src={covid} alt="covid-19"/>
+      <h3>Loading...</h3>
+      </>
+    )}
 
   return ( 
     <div className={styles.container}>
       <Grid container spacing={3} justify='center'>
 
-        <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.infected)}>
+        {variants.map(variant => (
+          <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.infected)}>
           <CardContent>
-            <Typography color='textSecondary' gutterBottom>Infected</Typography>
+              <Typography color='textSecondary' gutterBottom>{variant.state}</Typography>
             <Typography variant='h4'>
               <CountUp
                 start={0}
-                end={confirmed.value}
+                end={variant.end.value}
                 duration={2.0}
                 separator=','
               />            
             </Typography>
             <Typography color='textSecondary' gutterBottom>{new Date(lastUpdate).toLocaleString()}</Typography>
-            <Typography variant="body2">Number of active cases of Covid-19</Typography>
+              <Typography variant="body2">Number of{variant.text}Covid-19</Typography>
           </CardContent>
         </Grid> 
-
-        <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.recovered)}>
-          <CardContent>
-            <Typography color='textSecondary' gutterBottom>Recovered</Typography>
-            <Typography variant='h5'>
-              <CountUp
-                start={0}
-                end={recovered.value}
-                duration={2.5}
-                separator=','
-              />  
-            </Typography>
-            <Typography color='textSecondary' gutterBottom>{new Date(lastUpdate).toLocaleString()}</Typography>
-            <Typography variant="body2">Number of recovered cases of Covid-19</Typography>
-          </CardContent>
-        </Grid>  
-        
-        <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.deaths)}>
-          <CardContent>
-            <Typography color='textSecondary' gutterBottom>Deaths</Typography>
-            <Typography variant='h5'>
-              <CountUp
-                start={0}
-                end={deaths.value}
-                duration={5}
-                separator=','
-              />  
-            </Typography>
-            <Typography color='textSecondary' gutterBottom>{new Date(lastUpdate).toLocaleString()}</Typography>
-            <Typography variant="body2">Number of deaths caused by Covid-19</Typography>
-          </CardContent>
-        </Grid>       
+        ))
+        }
     </Grid>
     </div>
    );
