@@ -8,3 +8,19 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.image {
+  display: flex;
+  align-self: flex-end;
+  width: 370px;
+  margin: 30px 20px 0;
+}
+
+@media (max-width: 770px) {
+.container {
+  margin: 0 10px;
+}
+.image {
+  width: 100%;
+}
+}

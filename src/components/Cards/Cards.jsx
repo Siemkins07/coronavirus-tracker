@@ -18,7 +18,7 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
         <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.infected)}>
           <CardContent>
             <Typography color='textSecondary' gutterBottom>Infected</Typography>
-            <Typography variant='h5'>
+            <Typography variant='h4'>
               <CountUp
                 start={0}
                 end={confirmed.value}

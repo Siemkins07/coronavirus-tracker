@@ -5,7 +5,7 @@ import { Line, Bar } from 'react-chartjs-2';
 import styles from './Chart.module.css';
 
 
-const Chart = ({ data: { confirmed, recovered, deaths } }, country) => {
+const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
   const [dailyData, setDailyData] = useState([]);
   
   useEffect(() => {
@@ -27,6 +27,7 @@ const Chart = ({ data: { confirmed, recovered, deaths } }, country) => {
               label: "Infected",
               borderColor: '#3333ff',
               fill: true,
+            
             }, {
           data: dailyData.map(({ deaths }) => deaths),
                 label: "Deaths",
@@ -59,10 +60,9 @@ const Chart = ({ data: { confirmed, recovered, deaths } }, country) => {
     ) : null
   )
 
-
   return ( 
     <div className={styles.container}>
-      {country? barChart : lineChart}
+      {country ? barChart : lineChart}
     </div>
    );
 }
